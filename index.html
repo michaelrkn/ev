@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>When We All Vote</title>
     <style>
-      .iframe-container {
+      #iframe-container {
         position: relative;
         overflow: hidden;
         width: 100%;
@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://www.whenweallvote.org/wp-content/themes/whenwevote/style.css">
-    <link rel="stylesheet" type="text/css" href="/static/core/style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"></script>
@@ -77,21 +76,36 @@
     <main>
       <div class="my-5">
         <div class="container">
-          <h1>See where to vote early</h1>
-          <form>
+          <h1>Early Voting Lookup</h1>
+          <h3>Stay Safe. Save Time. Vote Early.</h3>
+          <p class="lead">Millions of Americans of Americans have already cast their ballots. Find where to vote early.</p>
+          <form id="early-voting">
             <label for="zip" style="font-size: 1.5rem">Enter your zip code to see early voting sites near you:</label>
-            <input id="zip" type="text" value="[This doesn't work yet]">
+            <input id="zip" type="text">
+            <input type="submit" value="Find sites near me">
           </form>
-          <div class="iframe-container">
-            <iframe class="responsive-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1TDZ8INl1VkSXduZERPpU63C3C-c-rlmS"></iframe>
+          <div id="info">
+          </div>
+          <div id="iframe-container">
           </div>
         </div>
       </div>
     </main>
-    <script type='text/javascript' src='https://www.whenweallvote.org/wp-content/themes/whenwevote/src/js/addons.js?ver=0.0.3'></script>
-    <script>const input = document.getElementById('zip');
+    <script type="text/javascript" src="https://www.whenweallvote.org/wp-content/themes/whenwevote/src/js/addons.js?ver=0.0.3"></script>
+    <script>
+      const input = document.getElementById("zip");
       input.focus();
       input.select();
+      const form = document.getElementById("early-voting");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let info = '<p>Click a pin below to see the location, hours, and requirements.</p>'
+        document.getElementById("info").innerHTML = "<p class='lead'>Click a pin below to see the location, hours, and requirements.</p>";
+
+        let iframeHtml = '<iframe class="responsive-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1TDZ8INl1VkSXduZERPpU63C3C-c-rlmS"></iframe>';
+        document.getElementById("iframe-container").innerHTML = iframeHtml;
+      });
     </script>
   </body>
 </html>
