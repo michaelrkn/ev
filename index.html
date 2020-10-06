@@ -9,6 +9,7 @@
         position: relative;
         overflow: hidden;
         width: 100%;
+        min-height: 300px;
         padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
       }
       .responsive-iframe {
@@ -96,6 +97,7 @@
 
         let iframeHtml = '<div id="iframe-container"><iframe class="responsive-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1TDZ8INl1VkSXduZERPpU63C3C-c-rlmS&ll=' + latitude + '%2C' + longitude + '&z=11"></iframe></div>';
         document.getElementById("iframe-target").innerHTML = iframeHtml;
+        window.scrollTo(0, document.body.scrollHeight);
       });
     </script>
   </body>
