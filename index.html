@@ -81,19 +81,24 @@
         </div>
       </div>
     </main>
-    <script type="text/javascript" src="https://www.whenweallvote.org/wp-content/themes/whenwevote/src/js/addons.js?ver=0.0.3"></script>
     <script>
       const input = document.getElementById("zip");
       input.focus();
       input.select();
       const form = document.getElementById("early-voting");
-      form.addEventListener("submit", (event) => {
+      form.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        let zip = document.getElementById("zip").value;
+        let zipResponse = await fetch("https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=" + zip);
+        let zipJSON = await zipResponse.json();
+        let latitude = zipJSON.records[0].fields.latitude;
+        let longitude = zipJSON.records[0].fields.longitude;
 
         let info = '<p>Click a pin below to see the location, hours, and requirements.</p>'
         document.getElementById("info").innerHTML = "<p class='lead'>Click a pin below to see the location, hours, and requirements.</p>";
 
-        let iframeHtml = '<iframe class="responsive-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1TDZ8INl1VkSXduZERPpU63C3C-c-rlmS"></iframe>';
+        let iframeHtml = '<iframe class="responsive-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1TDZ8INl1VkSXduZERPpU63C3C-c-rlmS&ll=' + latitude + '%2C' + longitude + '&z=11"></iframe>';
         document.getElementById("iframe-container").innerHTML = iframeHtml;
       });
     </script>
